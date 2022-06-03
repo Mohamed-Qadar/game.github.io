@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title> Guessing Game</title>
+   <!-- <link href="style.css" rel="stylesheet" /> -->
+   <style media="screen">
+     body {
+ height: 100%;
+ width: 100%;
+}
+#container{
+margin:auto;
+border:5px solid lightBlue;
+font-size:30px;
+padding:10px;
+text-align:center;
+height: 100%;
+width: 100%;
+background-color:#0e2431;
+   }
+#result{
+  margin-top: 100px;
+ position: relative;
+ center:180px;
+ border:5px solid lightBlue;
+ font-size:30px;
+ padding:10px;
+     text-align:center;
+   }
+#result {
+ position: relative;
+}
+
+#result {
+ position: absolute;
+/*   top: 8px; */
+ top: 5%;
+ center: 20px;
+
+}
+#result:hover {
+ background-color: green;
+}
+ #btn{
+       margin-top: 100px;
+     border:5px solid lightBlue;
+     font-size:30px;
+     padding:10px;
+     text-align:center;
+   }
+#btn:hover {
+ background-color: green;
+}
+#fromUser{
+     margin:auto;
+     border:5px solid lightBlue;
+     font-size:30px;
+     padding:10px;
+     text-align:center;
+   }
+   p{
+     color:white;
+   }
+
+
+   </style>
+</head>
+<body>
+
+  <form>
+<div id="container">
+
+        <p> Guessing Game</p>
+<!--    <button id="result" >Click the button if you want  to see the hiding number.</button> -->
+
+ <button id="result" onclick ="Rand()">Click the button if you want  to see the hiding number.</button>
+
+
+        <input type="number"id="fromUser" maxlength ="4">
+        <button type='button' id="btn"  onclick="myfunc()">guess the hiding number</button>
+        <p id="data_info"></p>
+
+
+<!--        <p>Counter: <text id="Counter">0</text></p> -->
+<!--         <button id="#" onclick ="stopdoing()">.</button> -->
+
+
+<!--          <p id="repeate" onclick ="Repeate()"> click if want to Repeate the game</p> -->
+    </div>
+    </form>
+   <script>
+
+     var N_Random = [];
+     // var count = 0;
+     // count++;
+     for(let i = 1; i<=10; i++){
+         let R = Math.floor(Math.random() * 10);
+           if(N_Random.indexOf(R) == -1 && N_Random.length != 4)
+        // if(R != 0 && R.length != 4)
+       N_Random.push(R);
+         }
+
+     var correct_An= 0;
+     var crrt = 0;
+     document.getElementById('result').innerHTML = N_Random;
+
+     // function Rand(){
+     // document.getElementById('result').innerHTML = N_Random;
+     //
+     // }
+     // function stopdoing(){
+
+     //   if(count >3){
+     //      break;
+
+     //   }
+     // }
+       correct_An = 0;
+       crrt = 0;
+
+     var input = document.getElementById("fromUser");
+     input.addEventListener("keypress", function(event) {
+       if (event.key === "Enter") {
+       //document.getElementById('btn').type="reset";
+         // myfunc();
+
+
+       }
+     });
+
+     function myfunc(){
+       let input = document.getElementById('fromUser').value;
+       document.getElementById("btn").type="reset";
+
+       // Counter.innerHTML = count++;
+       inputstr = input.toString();
+       randNumber = N_Random.toString();
+         for(let j = 0; j<input.length; j++){
+                if (N_Random[j] == input[j]){
+                 crrt += 1;
+             }
+             else if(N_Random[j] != input[j]&& randNumber.search(inputstr[j]) != -1  ){
+               //from stack overfloo
+               correct_An += 1;
+               // if(N_Random[j] !=input[0] ){
+               //   correct_An += 1;
+               //   data_info.innerHTML +=` <br>`;
+
+               // }
+
+
+             }
+
+             if(crrt == 4 ){
+                 data_info.innerHTML += `Congratulations!!! you guessed the number correctly <br>`;
+                 correct_An =0;
+                 crrt =0;
+                 return;
+             }
+
+         }
+
+
+          data_info.innerHTML += `-${correct_An} : `;
+         data_info.innerHTML +=`minus means numbers place wrong but available on up <br>`;
+
+         // data_info.innerHTML += `+${crrt} : `;
+        data_info.innerHTML +=`you are correctly guess +${crrt}<br>`;
+         data_info.innerHTML += "<br>"
+        // stopdoing();
+         correct_An =0;
+         crrt = 0;
+
+     }
+     // function Repeate(){
+     //   document.getElementById('repeate').innerHTML =myfunc();
+     //   location.reload();
+
+     // }
+      // var btn = document.getElementById('btn');
+   </script>
+</body>
+</html>
